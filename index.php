@@ -1,2 +1,2 @@
 <?php
-echo "Hello LINE BOT FITFARM";
+echo "Hello LINE BOT FITFARM2";
