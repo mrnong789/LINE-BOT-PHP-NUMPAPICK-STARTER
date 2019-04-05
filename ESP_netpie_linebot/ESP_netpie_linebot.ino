@@ -16,6 +16,8 @@ const char* host = "http://fitfarm.herokuapp.com/bot.php";//change this to your 
 WiFiClient client;
 String uid = "";
 int timer = 0;
+int mockSensor = 0;
+bool conn = false;
 MicroGear microgear(client);
 
 void onMsghandler(char *topic, uint8_t* msg, unsigned int msglen) { // 
@@ -23,15 +25,15 @@ void onMsghandler(char *topic, uint8_t* msg, unsigned int msglen) { //
     msg[msglen] = '\0';
 Serial.println((char *)msg);
     if(*(char *)msg == '1'){
-        digitalWrite(LED_BUILTIN, LOW);   // LED on
+        digitalWrite(16, HIGH);   // LED on
         //microgear.chat(TargetWeb,"1");
         //send_data("ESP_LED_ON");
-        send_json("ESP LED ON");
-    }else{
-        digitalWrite(LED_BUILTIN, HIGH);  // LED off
-      //microgear.chat(TargetWeb,"0");
-      //send_data("ESP_LED_OFF");
-      send_json("ESP LED OFF");
+        send_json("Level 1");
+    }else if(*(char *)msg == '2'){
+          digitalWrite(16, LOW);   // LED on
+        //microgear.chat(TargetWeb,"1");
+        //send_data("ESP_LED_ON");
+        send_json("Level 2");
     }
 }
 
@@ -48,7 +50,7 @@ void setup() {
     Serial.begin(115200);
     Serial.println("Starting...");
 
-    pinMode(LED_BUILTIN, OUTPUT);
+    pinMode(16, OUTPUT);
   
     if (WiFi.begin(ssid, password)) {
         while (WiFi.status() != WL_CONNECTED) {
@@ -63,7 +65,7 @@ Serial.println("WiFi connected");
 
     microgear.init(KEY,SECRET,ALIAS);
     microgear.connect(APPID);
-     digitalWrite(LED_BUILTIN, HIGH);   // LED on
+     digitalWrite(16, HIGH);   // LED on
 }
 
 void send_json(String data){
@@ -96,13 +98,25 @@ void send_json(String data){
     http.end();  //Close connection
 }
 void loop() {
+
+    if(conn){
+      if(mockSensor == 1000){
+        send_json("sensor handle!!");
+        mockSensor = 0;
+      }
+      mockSensor++;
+    }
+     
     if (microgear.connected()) {
         Serial.println("..."); 
+        Serial.println(mockSensor); 
         microgear.loop();
         timer = 0;
+        conn = true;
     }
     else {
         Serial.println("connection lost, reconnect...");
+        conn = false;
         if (timer >= 5000) {
             microgear.connect(APPID); 
             timer = 0;
