@@ -108,8 +108,8 @@ void loop() {
     }
      
     if (microgear.connected()) {
-        Serial.println("..."); 
-        Serial.println(mockSensor); 
+        //Serial.println("..."); 
+       // Serial.println(mockSensor); 
         microgear.loop();
         timer = 0;
         conn = true;

@@ -1,2 +1,3 @@
 <?php
-echo "Hello LINE BOT FITFARM2";
+echo "SMART FITFARM V1.0";
+?>
