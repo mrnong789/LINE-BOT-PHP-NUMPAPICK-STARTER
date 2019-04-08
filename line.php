@@ -1,19 +1,14 @@
  <?php
   
-
 function send_LINE($msg){
- $access_token = 'MDogdQfR5pelyDFp24lerYcf3ehef8x/GfOt7PpFBH2HyHe/lCHMfgSaRKe3Bbc9pbc2hFKptcocK7RwR60ySMMri9pZxsskkuox7jeM5Y04YSHwA8T1wv33njtaz2ntxIOROcvUVXzmpqud8j3C0AdB04t89/1O/w1cDnyilFU='; 
-
+  $access_token = 'MDogdQfR5pelyDFp24lerYcf3ehef8x/GfOt7PpFBH2HyHe/lCHMfgSaRKe3Bbc9pbc2hFKptcocK7RwR60ySMMri9pZxsskkuox7jeM5Y04YSHwA8T1wv33njtaz2ntxIOROcvUVXzmpqud8j3C0AdB04t89/1O/w1cDnyilFU='; 
   $messages = [
         'type' => 'text',
         'text' => $msg
-        //'text' => $text
       ];
 
       // Make a POST Request to Messaging API to reply to sender
-      $url = 'https://api.line.me/v2/bot/message/push';
-     // $url = ' https://api.line.me/v2/bot/message/reply';
-     
+      $url = ' https://api.line.me/v2/bot/message/reply'; 
       $data = [
 
         'to' => 'U55c766af592a614bdd88140c48191455',
@@ -33,5 +28,4 @@ function send_LINE($msg){
 
       echo $result . "\r\n"; 
 }
-
 ?>
