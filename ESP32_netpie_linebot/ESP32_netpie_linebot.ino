@@ -28,11 +28,11 @@ void onMsghandler(char *topic, uint8_t* msg, unsigned int msglen) {
   Serial.println((char *)msg);
   String msgLINE = (char *)msg;
   if ( msgLINE == "ON" || msgLINE == "On" || msgLINE == "on" ) {
-    digitalWrite(16, HIGH);         // LED on
+    digitalWrite(2, HIGH);         // LED on
     send_json("LED Turn on");
   }
   if ( msgLINE == "OFF" || msgLINE == "Off"  || msgLINE == "off" ) {
-    digitalWrite(16, LOW);          // LED off
+    digitalWrite(2, LOW);          // LED off
     send_json("LED turn off");
   }
 }
@@ -79,7 +79,7 @@ void setup() {
   Serial.begin(115200);
   Serial.println("Starting...");
 
-  pinMode(16, OUTPUT);
+  pinMode(2, OUTPUT);
 
   if (WiFi.begin(ssid, password)) {
     while (WiFi.status() != WL_CONNECTED) {
@@ -94,12 +94,12 @@ void setup() {
 
   microgear.init(KEY, SECRET, ALIAS);
   microgear.connect(APPID);
-  digitalWrite(16, HIGH);   // LED on
+  digitalWrite(2, HIGH);   // LED on
 }
 
 void loop() {
   if (microgear.connected()) {
-    Serial.println("NETPIE is connecting!");
+  //  Serial.println("NETPIE is connecting!");
     microgear.loop();
     timer = 0;
   }
