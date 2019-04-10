@@ -1,3 +1,3 @@
 <?php
-echo "SMART FITFARM V1.0";
+echo "SMART FITFARM V2.0";
 ?>
